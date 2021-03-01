@@ -1,8 +1,9 @@
 import fs, { readFileSync } from "fs";
 import youtubedl from "youtube-dl";
 import ffmpeg from "fluent-ffmpeg";
-import { bot } from "../index";
 import { app } from "../firebase/index";
+import { bot } from "../index";
+import { deleteFile } from "../util";
 
 (global as any).XMLHttpRequest = require("xhr2");
 
@@ -10,7 +11,7 @@ export const downloadAndConvert = async (query) => {
   try {
     let file;
     let newName;
-    const randomString = Math.random().toString(20).substr(2, 6)
+    const randomString = Math.random().toString(20).substr(2, 6);
 
     const video = await youtubedl(
       query.update.callback_query.data,
@@ -41,40 +42,27 @@ export const downloadAndConvert = async (query) => {
         .toFormat("mp3")
         .saveToFile(`/app/${randomString}.mp3`)
         .on("end", async () => {
-          
           file = readFileSync(`/app/${randomString}.mp3`);
           const storageRef = await app.storage().ref();
           const fileRef = storageRef.child(newName).put(file);
 
-         await fileRef.on(
+          await fileRef.on(
             "state_changed",
             (snapshot) => {
               const progress =
                 (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-                 console.log("Upload is " + progress + "% done");
+              console.log("Upload is " + progress + "% done");
             },
             null,
-             () => {
+            () => {
               fileRef.snapshot.ref.getDownloadURL().then((downloadURL) => {
-               bot.telegram.sendAudio(query.from.id, downloadURL);
+                bot.telegram.sendAudio(query.from.id, downloadURL);
               });
             }
-
           );
-          
-          [`${randomString}.mp3`,`${randomString}.mp4`].map( async (el)=>{
-            try{
-              await fs.unlink(el, (err) => {
-                if (err) throw err;
-                console.log('path/file was deleted');
-              });
-            }catch(err){
-              console.log(err)
-            }
-          })
-       });
+          deleteFile(randomString);
+        });
     });
-    
   } catch (err) {
     console.log(err);
   }
