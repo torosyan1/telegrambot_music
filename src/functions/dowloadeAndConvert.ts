@@ -30,9 +30,9 @@ export const downloadAndConvert = async (query) => {
       const arr = name.split(".");
       arr[arr.length - 1] = "mp3";
       newName = arr.join(".");
-      await video.pipe(fs.createWriteStream(info._filename));
     });
-    
+    await video.pipe(fs.createWriteStream(name));
+
     video.on("end", async () => {
       console.log("finished downloading!");
 
