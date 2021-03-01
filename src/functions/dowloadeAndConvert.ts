@@ -11,6 +11,7 @@ export const downloadAndConvert = async (query) => {
     let file;
     let newName;
     const randomString = Math.random().toString(20).substr(2, 6)
+
     const video = await youtubedl(
       query.update.callback_query.data,
       ["--format=18"],
@@ -38,10 +39,10 @@ export const downloadAndConvert = async (query) => {
       await ffmpeg(`/app/${randomString}.mp4`)
         .withAudioCodec("libmp3lame")
         .toFormat("mp3")
-        .saveToFile(`/app/${newName}`)
+        .saveToFile(`/app/${randomString}.mp3`)
         .on("end", async () => {
           
-          file = readFileSync(`/app/${newName}`);
+          file = readFileSync(`/app/${randomString}.mp3`);
           const storageRef = await app.storage().ref();
           const fileRef = storageRef.child(newName).put(file);
 
