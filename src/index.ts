@@ -8,7 +8,7 @@ const app = express();
 
 export const bot = new Telegraf(process.env.BOT_TOKEN);
 
-bot.command('start', (ctx)=> ctx.telegram.sendMessage(ctx.from.id,'welcome to music channel 🥳 '))
+bot.command('start', (ctx)=> ctx.telegram.sendMessage(ctx.from.id,'welcome to music channel 🥳'))
 
 bot.on("message", search);
 
