@@ -68,7 +68,7 @@ export const downloadAndConvert = async (query) => {
       try{
         await fs.unlink(el, (err) => {
           if (err) throw err;
-          console.log('path/file.txt was deleted');
+          console.log('path/file was deleted');
         });
       }catch(err){
         console.log(err)
