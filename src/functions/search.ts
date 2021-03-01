@@ -9,13 +9,21 @@ export const search = async (ctx) => {
     });
     const reply_markup = [];
 
-    resultC.currentPage.map((el) => {
+    resultC.currentPage.map((el,index) => {
       reply_markup.push([
         {
           text: el.title,
           callback_data: el.url,
         },
       ]);
+      if(index===resultC.length-1){
+        reply_markup.push(
+          {
+            text: '❌',
+            callback_data: 'delete',
+          },
+        );
+      }
     });
 
     const options = {
