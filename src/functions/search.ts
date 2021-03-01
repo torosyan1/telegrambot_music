@@ -16,7 +16,7 @@ export const search = async (ctx) => {
           callback_data: el.url,
         },
       ]);
-      if(index===resultC.length-1){
+      if(index===resultC.length){
         reply_markup.push(
           {
             text: '❌',
