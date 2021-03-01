@@ -1,4 +1,3 @@
-import "../../env";
 import fs, { readFileSync } from "fs";
 import youtubedl from "youtube-dl";
 import ffmpeg from "fluent-ffmpeg";

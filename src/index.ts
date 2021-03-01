@@ -1,4 +1,3 @@
-import '../env'
 import express from "express";
 import Telegraf from "telegraf";
 import session from "telegraf/session";

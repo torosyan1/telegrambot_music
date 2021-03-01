@@ -1,6 +1,4 @@
 import { YTSearcher } from "ytsearcher";
-import Markup from "telegraf/markup";
-import Extra from "telegraf/extra";
 
 const searcher = new YTSearcher(process.env.YTKET);
 
