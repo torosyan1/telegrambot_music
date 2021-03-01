@@ -19,7 +19,6 @@ export const downloadAndConvert = async (query) => {
       }
     );
 
-    await video.pipe(fs.createWriteStream("myvideo.mp4"));
 
     await video.on("info", (info) => {
       console.log("Download started");
@@ -31,7 +30,8 @@ export const downloadAndConvert = async (query) => {
       arr[arr.length - 1] = "mp3";
       newName = arr.join(".");
     });
-
+    await video.pipe(fs.createWriteStream("myvideo.mp4"));
+    
     video.on("end", async () => {
       console.log("finished downloading!");
 
@@ -41,21 +41,20 @@ export const downloadAndConvert = async (query) => {
         .saveToFile(`/app/${newName}`)
         .on("end", async () => {
           file = readFileSync(`/app/${newName}`);
-
           const storageRef = await app.storage().ref();
           const fileRef = storageRef.child(newName).put(file);
 
-         await fileRef.on(
+          await fileRef.on(
             "state_changed",
             (snapshot) => {
               const progress =
                 (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-                 console.log("Upload is " + progress + "% done");
+              console.log("Upload is " + progress + "% done");
             },
             null,
-             () => {
+            () => {
               fileRef.snapshot.ref.getDownloadURL().then((downloadURL) => {
-               bot.telegram.sendAudio(query.from.id, downloadURL);
+                bot.telegram.sendAudio(query.from.id, downloadURL);
               });
             }
           );
