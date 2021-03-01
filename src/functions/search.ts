@@ -9,20 +9,20 @@ export const search = async (ctx) => {
     });
     const reply_markup = [];
 
-    resultC.currentPage.map((el,index) => {
+    resultC.currentPage.map((el, index) => {
       reply_markup.push([
         {
           text: el.title,
           callback_data: el.url,
         },
       ]);
-      if(index===resultC.length){
-        reply_markup.push(
+      if (index === resultC.length) {
+        reply_markup.push([
           {
-            text: '❌',
-            callback_data: 'delete',
+            text: "❌",
+            callback_data: "delete",
           },
-        );
+        ]);
       }
     });
 
@@ -33,7 +33,6 @@ export const search = async (ctx) => {
     };
 
     ctx.telegram.sendMessage(ctx.from.id, "Musics list 👇", options);
-
   } catch (err) {
     console.log(err);
   }
