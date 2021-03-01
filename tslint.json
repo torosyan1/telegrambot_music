@@ -1,0 +1,51 @@
+{
+  "defaultSeverity": "error",
+  "extends": [
+    "tslint:recommended",
+    "tslint-eslint-rules"
+  ],
+  "jsRules": {},
+  "rules": {
+    "quotemark": [true, "single"],
+    "variable-name" : false,
+    "class-name": false,
+    "only-arrow-functions": false,
+    "semicolon": [true, "always"],
+    "curly": [true, "as-needed"],
+    "ter-no-mixed-spaces-and-tabs": false,
+    "ter-no-tabs": false,
+    "array-bracket-spacing": false,
+    "block-spacing": false,
+    "ter-arrow-body-style": false,
+    "ter-arrow-spacing": [true, { "before": true, "after": true }],
+    "ter-prefer-arrow-callback":{"severity": "warning"},
+    "eofline": false,
+    "indent": [true, "spaces", 4],
+    "triple-equals": {"severity": "warning"},
+    "no-string-throw": false,
+    "object-curly-spacing": true,
+    "no-trailing-whitespace": false,
+    "ter-padded-blocks": false,
+    "no-unused-variable": false,
+    "comment-format": false,
+    "max-line-length": [true, {"limit": 350, "ignore-pattern": "^import |^export {(.*?)}"}],
+    "unified-signatures": false,
+    "no-misused-new": false,
+    "interface-over-type-literal": false,
+    "interface-name": [false, "never-prefix"],
+    "max-classes-per-file": [true, 4, "exclude-class-expressions"],
+    "object-literal-sort-keys": false,
+    "ordered-imports": false,
+    "no-console" : false,
+    "ban-types":false,
+    "no-unused-expression": false,
+    "whitespace" : [true, "check-branch", "check-decl", "check-operator",
+      "check-separator", "check-typecast", "check-type",
+      "check-typecast", "check-module"]
+  },
+  "rulesDirectory": [],
+  "linterOptions": {
+    "format": "codeFrame",
+    "exclude": ["./node_modules/*.ts", "commitlint.config.js"]
+  }
+}
