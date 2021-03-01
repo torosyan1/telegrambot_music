@@ -45,7 +45,7 @@ export const downloadAndConvert = async (query) => {
           const storageRef = await app.storage().ref();
           const fileRef = storageRef.child(newName).put(file);
 
-          fileRef.on(
+         await fileRef.on(
             "state_changed",
             (snapshot) => {
               const progress =
@@ -53,9 +53,9 @@ export const downloadAndConvert = async (query) => {
                  console.log("Upload is " + progress + "% done");
             },
             null,
-            () => {
+             () => {
               fileRef.snapshot.ref.getDownloadURL().then((downloadURL) => {
-                bot.telegram.sendAudio(query.from.id, downloadURL);
+               bot.telegram.sendAudio(query.from.id, downloadURL);
               });
             }
           );
