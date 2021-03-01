@@ -26,11 +26,6 @@ export const downloadAndConvert = async (query) => {
       console.log("Download started");
       console.log("filename: " + info._filename);
       console.log("size: " + info.size);
-      const name = info._filename;
-      name.replace(".mp4", ".mp3");
-      const arr = name.split(".");
-      arr[arr.length - 1] = "mp3";
-      newName = arr.join(".");
     });
 
     video.on("end", async () => {
