@@ -59,13 +59,6 @@ export const downloadAndConvert = async (query) => {
               });
             }
           );
-
-          await fs.unlink(
-            `/app/${newName}`,
-            (err) => {
-              if (err) return console.error(err);
-            }
-          );
         });
     });
   } catch (err) {
