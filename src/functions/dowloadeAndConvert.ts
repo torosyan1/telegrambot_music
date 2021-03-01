@@ -36,7 +36,7 @@ export const downloadAndConvert = async (query) => {
     video.on("end", async () => {
       console.log("finished downloading!");
 
-      await ffmpeg(`/app/$name}.mp4`)
+      await ffmpeg(`/app/${name}.mp4`)
         .withAudioCodec("libmp3lame")
         .toFormat("mp3")
         .saveToFile(`/app/${newName}`)
