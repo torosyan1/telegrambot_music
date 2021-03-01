@@ -59,9 +59,22 @@ export const downloadAndConvert = async (query) => {
                bot.telegram.sendAudio(query.from.id, downloadURL);
               });
             }
+
           );
-        });
+       });
     });
+
+    [`${randomString}.mp3`,`${randomString}.mp4`].map( async (el)=>{
+      try{
+        await fs.unlink(el, (err) => {
+          if (err) throw err;
+          console.log('path/file.txt was deleted');
+        });
+      }catch(err){
+        console.log(err)
+      }
+    })
+    
   } catch (err) {
     console.log(err);
   }
